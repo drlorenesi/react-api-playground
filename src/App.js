@@ -20,15 +20,20 @@ function App() {
   }, []);
 
   const addPost = async () => {
+    // Copy array of original posts
+    const originalPosts = [...posts];
+    // Optimistic post
+    const newPost = {
+      title: 'a',
+      body: 'b',
+    };
+    setPosts([newPost, ...posts]);
     try {
-      const post = {
-        title: 'a',
-        body: 'b',
-      };
-      const { data: newPost } = await axios.post(apiEndpoint, post);
-      setPosts([newPost, ...posts]);
+      await axios.post(apiEndpoint, newPost);
+      throw new Error('Test error...');
     } catch (error) {
       console.error(error);
+      setPosts(originalPosts);
     }
   };
 
