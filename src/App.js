@@ -33,32 +33,39 @@ function App() {
   };
 
   const updatePost = async (post) => {
-    const originalPosts = { ...posts };
-    // Optimistic Update
-    post.title = 'Updated!';
-    setPosts([...posts]);
+    // Copy original post
+    const index = posts.indexOf(post);
+    const originalPost = { ...posts[index] };
+    // Optimistic update
+    post.title = 'Updated';
+    const updatedPosts = [...posts];
+    updatedPosts[index] = { ...post };
+    setPosts(updatedPosts);
     try {
       await axios.put(`${apiEndpoint}/${post.id}`, post);
-      // console.log(originalPosts);
-      // const index = posts.findIndex((p) => p.id === post.id);
-    } catch (error) {
+      throw new Error('Test error...');
+    } catch (err) {
       alert('Something went wrong!');
-      console.error(error);
-
-      // setPosts(originalPosts);
+      console.error(err);
+      // Revert to original state
+      const revertPosts = [...posts];
+      revertPosts[index] = originalPost;
+      setPosts(revertPosts);
     }
   };
 
   const deletePost = async (post) => {
-    // Review
-    const originalPosts = posts;
+    // Copy array of original posts
+    const originalPosts = [...posts];
     // Optimistic Delete
     setPosts(posts.filter((p) => p.id !== post.id));
     try {
       await axios.delete(`${apiEndpoint}/${post.id}`);
-    } catch (error) {
+      throw new Error('Test error...');
+    } catch (err) {
       alert('Something went wrong!');
-      console.error(error);
+      console.error(err);
+      // Revert to original state
       setPosts(originalPosts);
     }
   };
