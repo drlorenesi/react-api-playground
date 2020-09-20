@@ -1,20 +1,17 @@
 import React, { Fragment, useEffect, useState } from 'react';
+import { ToastContainer } from 'react-toastify';
 import Navbar from './components/Navbar';
-import axios from 'axios';
-
-const apiEndpoint = 'https://jsonplaceholder.typicode.com/posts';
+import config from './config.json';
+import http from './services/httpService';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     async function getPosts() {
-      try {
-        const { data: posts } = await axios.get(apiEndpoint);
-        setPosts(posts);
-      } catch (error) {
-        console.error(error);
-      }
+      const { data: posts } = await http.get(config.apiEndpoint);
+      setPosts(posts);
     }
     getPosts();
   }, []);
@@ -29,14 +26,17 @@ function App() {
     };
     setPosts([newPost, ...posts]);
     try {
-      await axios.post(apiEndpoint, newPost);
+      await http.post(config.apiEndpoint, newPost);
       throw new Error('Test error...');
-    } catch (error) {
-      console.error(error);
+    } catch (ex) {
+      // Check for a specific error
+      if (ex.response && ex.response.status === 400)
+        alert('The post could not be added.');
       setPosts(originalPosts);
     }
   };
 
+  // NEEDS FURTHER REVIEW...
   const updatePost = async (post) => {
     // Copy original post
     const index = posts.indexOf(post);
@@ -47,11 +47,12 @@ function App() {
     updatedPosts[index] = { ...post };
     setPosts(updatedPosts);
     try {
-      await axios.put(`${apiEndpoint}/${post.id}`, post);
+      await http.put(`${config.apiEndpoint}/${post.id}`, post);
       throw new Error('Test error...');
-    } catch (err) {
-      alert('Something went wrong!');
-      console.error(err);
+    } catch (ex) {
+      // Check for a specific error
+      if (ex.response && ex.response.status === 400)
+        alert('The post could not be updated.');
       // Revert to original state
       const revertPosts = [...posts];
       revertPosts[index] = originalPost;
@@ -65,11 +66,11 @@ function App() {
     // Optimistic Delete
     setPosts(posts.filter((p) => p.id !== post.id));
     try {
-      await axios.delete(`${apiEndpoint}/${post.id}`);
-      throw new Error('Test error...');
-    } catch (err) {
-      alert('Something went wrong!');
-      console.error(err);
+      await http.delete(`s${config.apiEndpoint}/${post.id}`);
+    } catch (ex) {
+      // Check for a specific error
+      if (ex.response && ex.response.status === 404)
+        alert('This post has already been deleted.');
       // Revert to original state
       setPosts(originalPosts);
     }
@@ -78,6 +79,7 @@ function App() {
   return (
     <Fragment>
       <Navbar />
+      <ToastContainer newestOnTop />
       <main className='container-fluid'>
         <h1>React App</h1>
         <button className='btn btn-primary' onClick={() => addPost()}>
