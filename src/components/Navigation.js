@@ -23,13 +23,23 @@ function Navigation() {
           <div className='collapse navbar-collapse' id='navbarNav'>
             <ul className='navbar-nav'>
               <li className='nav-item'>
-                <Link className='nav-link' to='/products'>
-                  Products
+                <Link className='nav-link' to='/movies'>
+                  Movies
                 </Link>
               </li>
               <li className='nav-item'>
                 <Link className='nav-link' to='/api'>
                   API
+                </Link>
+              </li>
+              <li className='nav-item'>
+                <Link className='nav-link' to='/counter'>
+                  Counter
+                </Link>
+              </li>
+              <li className='nav-item'>
+                <Link className='nav-link' to='/charts'>
+                  Charts
                 </Link>
               </li>
             </ul>
