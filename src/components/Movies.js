@@ -1,17 +1,15 @@
 import React, { Fragment, useState } from 'react';
-import { getMovies, deleteMovie } from '../services/fakeMovieService.mjs';
+import { getMovies } from '../services/fakeMovieService.mjs';
 // Fontawesome imports
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 function Movies() {
-  // const [movies] = useState(getMovies());
   const [movies, setMovies] = useState(getMovies());
   let totalMovies = movies.length;
 
   const handleDelete = (movie) => {
-    const index = deleteMovie(movie.id).id;
-    setMovies(movies.filter((movie) => movie.id !== index));
+    setMovies(movies.filter((m) => m.id !== movie.id));
   };
 
   if (movies.length === 0)

@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 // Fontawesome imports
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
-function Navigation() {
+function Navigation(props) {
   return (
     <div className='shadow-sm bg-white rounded'>
       <nav className='navbar navbar-expand-sm navbar-light bg-light'>
@@ -33,8 +33,8 @@ function Navigation() {
                 </Link>
               </li>
               <li className='nav-item'>
-                <Link className='nav-link' to='/counter'>
-                  Counter
+                <Link className='nav-link' to='/counters'>
+                  Counters
                 </Link>
               </li>
               <li className='nav-item'>
@@ -43,7 +43,14 @@ function Navigation() {
                 </Link>
               </li>
             </ul>
+
             <ul className='navbar-nav ml-auto'>
+              <button className='btn  mr-2' type='submit'>
+                <FontAwesomeIcon icon={faShoppingCart} />
+                <span className='badge rounded-pill bg-secondary ml-1'>
+                  {props.items}
+                </span>
+              </button>
               <button className='btn btn-outline-primary' type='submit'>
                 Logout
               </button>
