@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 // Navbar
 import Navigation from './components/Navigation';
 // Menu items
@@ -39,7 +40,9 @@ function App() {
   };
 
   const handleAdd = () => {
-    console.log('Here.');
+    const newCounter = { id: uuidv4(), value: 0 };
+    const newCounters = [...counters, newCounter];
+    setCounters(newCounters);
   };
 
   const handleDelete = (counterId) => {
@@ -50,7 +53,9 @@ function App() {
     return (
       <div className='page-container'>
         <div className='content-wrap'>
-          <Navigation items={counters.filter((c) => c.value > 0).length} />
+          <Navigation
+            items={counters.reduce((accum, item) => accum + item.value, 0)}
+          />
           <main role='main' className='container-fluid mt-2'>
             <Switch>
               <Route path='/movies' component={Movies} />

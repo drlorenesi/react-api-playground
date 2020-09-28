@@ -2,7 +2,11 @@ import React, { Fragment, useState } from 'react';
 import { getMovies } from '../services/fakeMovieService.mjs';
 // Fontawesome imports
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import {
+  faTrashAlt,
+  faHeart as faHeartSolid,
+} from '@fortawesome/free-solid-svg-icons';
+import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 
 function Movies() {
   const [movies, setMovies] = useState(getMovies());
@@ -42,6 +46,8 @@ function Movies() {
               <td>{movie.numberInStock}</td>
               <td>{movie.dailyRentalRate}</td>
               <td>
+                <FontAwesomeIcon icon={faHeartRegular} />
+                <FontAwesomeIcon icon={faHeartSolid} />
                 <button
                   className='btn btn-sm btn-danger'
                   onClick={() => handleDelete(movie)}
