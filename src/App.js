@@ -64,8 +64,8 @@ function App() {
                 path='/counters'
                 render={() => (
                   <Counters
-                    onReset={handleReset}
                     onAdd={handleAdd}
+                    onReset={handleReset}
                     onDelete={handleDelete}
                     onIncrement={handleIncrement}
                     onDecrement={handleDecrement}

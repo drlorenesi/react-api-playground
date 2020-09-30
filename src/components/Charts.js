@@ -1,15 +1,15 @@
 import React, { Fragment } from 'react';
-import ReLine from './ReLine';
-import RePie from './RePie';
-import ReBar from './ReBar';
+import BarChart from './BarChart';
+import LineChart from './LineChart';
+import PieChart from './PieChart';
 
 function Charts() {
   return (
     <Fragment>
-      <h1>Recharts</h1>
-      <ReLine />
-      <RePie />
-      <ReBar />
+      <h1>Apex Charts</h1>
+      <LineChart />
+      <PieChart />
+      <BarChart />
     </Fragment>
   );
 }
