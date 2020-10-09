@@ -7,8 +7,8 @@ const movies = [
     genre: { id: 1, name: 'Action' },
     numberInStock: 6,
     dailyRentalRate: 2.5,
-    publishDate: '2018-01-03T19:04:28.809Z',
-    liked: true,
+    // publishDate: '2018-01-03T19:04:28.809Z',
+    // liked: true,
   },
   {
     id: 2,
@@ -71,6 +71,18 @@ const movies = [
 export function getMovies() {
   return movies;
 }
+
+// export function getMovies(movies) {
+//   return movies.map((movie) => [
+//     {
+//       id: movie.id,
+//       title: movie.title,
+//       genre: movie.genre.name,
+//       numberInStock: movie.numberInStock,
+//       dailyRentalRate: movie.dailyRentalRate,
+//     },
+//   ]);
+// }
 
 export function getMovie(id) {
   return movies.find((m) => m.id === id);

@@ -42,6 +42,16 @@ function Navigation(props) {
                   Charts
                 </Link>
               </li>
+              <li className='nav-item'>
+                <Link className='nav-link' to='/data-table'>
+                  Data Table
+                </Link>
+              </li>
+              <li className='nav-item'>
+                <Link className='nav-link' to='/material-table'>
+                  Material Table
+                </Link>
+              </li>
             </ul>
 
             <ul className='navbar-nav ml-auto'>

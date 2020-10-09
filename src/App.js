@@ -10,6 +10,8 @@ import Api from './components/Api';
 import Counters from './components/Counters';
 import Charts from './components/Charts';
 import LogIn from './components/LogIn';
+import DataTable from './components/DataTable';
+import MTable from './components/MTable';
 // Footer
 import Footer from './components/Footer';
 // CSS Modules
@@ -74,6 +76,8 @@ function App() {
                 )}
               />
               <Route path='/charts' component={Charts} />
+              <Route path='/data-table' component={DataTable} />
+              <Route path='/material-table' component={MTable} />
               <Route path='/' component={Home} />
             </Switch>
           </main>
